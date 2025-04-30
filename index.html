@@ -55,12 +55,12 @@
     }
 
     h1 {
-      font-size: clamp(10rem, 30vw, 25rem);
+      font-size: clamp(20rem, 35vw, 40rem);
       font-family: 'Parisienne', cursive;
       color: var(--crvena);
       margin-bottom: 2rem;
       animation: fadeInDown 2s ease-out;
-      text-shadow: 4px 4px 10px rgba(230, 0, 38, 0.5);
+      text-shadow: 6px 6px 15px rgba(230, 0, 38, 0.6);
       position: relative;
     }
 
@@ -88,47 +88,35 @@
     }
 
     @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .heart-button {
       position: fixed;
       left: 20px;
       bottom: 20px;
-      width: 60px;
-      height: 60px;
-      background: red;
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle, red 40%, darkred);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+      font-size: 36px;
       color: white;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
       transition: transform 0.3s;
     }
 
     .heart-button:hover {
-      transform: scale(1.1);
+      transform: scale(1.15);
     }
 
     .dollar {
@@ -145,25 +133,33 @@
       100% { transform: translateY(100vh); opacity: 0; }
     }
 
-    .heart-3d {
+    .heart-3d, .heart-3d2, .heart-3d3 {
       width: 100px;
       height: 90px;
       position: absolute;
-      top: 10%;
-      right: 10%;
       transform-style: preserve-3d;
       animation: rotate 8s linear infinite;
     }
 
+    .heart-3d { top: 10%; right: 10%; }
+    .heart-3d2 { top: 20%; left: 10%; animation-delay: 2s; }
+    .heart-3d3 { bottom: 15%; right: 20%; animation-delay: 4s; }
+
     .heart-3d::before,
-    .heart-3d::after {
+    .heart-3d::after,
+    .heart-3d2::before,
+    .heart-3d2::after,
+    .heart-3d3::before,
+    .heart-3d3::after {
       content: "❤️";
       position: absolute;
       font-size: 5rem;
       transform: translateZ(50px);
     }
 
-    .heart-3d::after {
+    .heart-3d::after,
+    .heart-3d2::after,
+    .heart-3d3::after {
       transform: rotateY(180deg) translateZ(50px);
     }
 
@@ -171,15 +167,34 @@
       0% { transform: rotateY(0); }
       100% { transform: rotateY(360deg); }
     }
+
+    .counter {
+      position: fixed;
+      left: 110px;
+      bottom: 30px;
+      font-size: 2rem;
+      background: #fff0f2;
+      color: #e60026;
+      padding: 10px 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(230, 0, 38, 0.4);
+      font-family: 'Powerful', serif;
+    }
   </style>
 </head>
 <body>
   <div class="heart-3d"></div>
+  <div class="heart-3d2"></div>
+  <div class="heart-3d3"></div>
   <h1>Dobrodošla ljubavi moja</h1>
-  <p>Tašo ljubavi moja</p>
+  <p>Taša ljubav moja</p>
   <div class="heart-button" onclick="spawnDollars()">❤️</div>
+  <div class="counter" id="counter">$0</div>
   <script>
+    let total = 0;
     function spawnDollars() {
+      total += 100;
+      document.getElementById('counter').innerText = "$" + total;
       for (let i = 0; i < 30; i++) {
         const dollar = document.createElement('div');
         dollar.className = 'dollar';
